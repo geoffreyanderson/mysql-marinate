@@ -2,18 +2,41 @@ Homework for Chapter 2 of Learning MySQL (2006 edition), from p. 94:
 
 Exercises:
 1) What is command completion?
+This depends on your shell, but there's generally some dependence on the ReadLine library to grab the tab character when you hit tab.  Once the "tab" character is received, ReadLine passes that along to BASH to get a list of completions.  In bash, there's a builtin called "complete" that fires and will generate a list of possible completions given the currently supplied prefix.  If no commands matching the prefix are found, bash will then search your current directory to see if there's a file/directory that matches the supplied prefix. 
 
 2) What are the relative advantages of installing MySQL using the package,
  directory archive (tarball or "no-install", or compiled methods?
+Package installations are (generally) tested and used by a larger community of people, are extremely easy to install across multiple machines, and need little work to maintain.  You can also roll your own package to ensure custom configurations and patches are included.
+
+Tarball installations allow you to simply drop-in an installation of mysql anywhere you want and also run an installation with the need for higher level permissions (as opposed to a package installation, where you'll need higher privileges to install to common UNIX directories).  This also allows you to get more up-to-date releases that may not have been pacakged yet.
+
+Compiled method allows you to have easy access to the latest MySQL source (including some untested stuff!).  The benefit of this is that you can get bleeding edge fixes to bugs and also influence what type of support can be built into mysql.  The obvious downside is that you may be exposed to newer, untested changes that could have more catastrophic effects on your data.  This is definitely an option to consider if you're patching a bug or simply want to contribute code back to the community! :)
 
 3) How do you verify the integrity of downloaded packages?
+Check a digest hash of the package against one the distributor supplies with the package you downloaded.  MD5Sum is a very popular hash in this respect.
 
 4) How do you add the MySQL bin directory to the operating system path?
+Depends on your operating system.  In UNIX variants, simply appending the mysql binary path to your PATH variable in your shell will achieve this. e.g.
+	$ export PATH="$PATH:/path/to/mysqld/binary/directory"
+
+Depending on your version of windows, you can either navigate through an amalgam of dialogs to add it to the PATH variable globally, or set on the command-line in a similar method to the UNIX method (I believe it's: PATH="%PATH%;c:\path\to\mysqld\binary\directory")
+
+Lastly, if you want these changes to persist in your shell across logins, you'll want to be sure it gets added to a file that your shell executes on startup.  In the case of BASH, you'll want it in a bashrc file (global file is /etc/bashrc, per-user is /home/username/.bashrc)
 
 Additional Exercises (not in the book): 
 1) Document how you installed MySQL and any issues you came across with installation. 
  (The goal is to be easy to install it again on a similar machine.)
+I'm running ArchLinux, so I simply issued: $ sudo pacman -Sy percona-server
+
+The only issue I've encountered thus far is that ArchLinux now uses Systemd for service management and MySQL doesn't yet have a ".service" file setup in its packages.
+
+I also have a local copy of Percona Server source checked out for patching on my own :)
 
 2) Document where important files should be.
+All over the place! :)
+* /var/lib/mysql -- default data directory
+* /etc/mysql/my.cnf -- the global mysqld config file
+* /usr/share/mysql -- translation files and stuff
+* /usr/lib/mysql -- mysql development headers *will* go here. Currently this just has a "plugin" directory with the mysql plugins
 
 Do not forget to do a pull request when your homework is complete.
