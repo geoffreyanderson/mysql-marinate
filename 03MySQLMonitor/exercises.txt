@@ -1,9 +1,12 @@
 1. What do we mean when we say that MySQL has a client-server architecture?
+There's the server process, mysqld, that listens for connections on a configured port or socket file and will respond to requests through these mediums.  Clients connect to either the port or socket of the mysql server process in order to issue queries.
 
 2. Use the monitor help to look up information on the SELECT statement. (We’ll discuss SELECT in detail in Chapter 5.)
+Output from 'help SELECT' is reminiscent of the online manual that documents the SELECT statement. 
 
 3. What is the difference between using the monitor in interactive mode and using
 the monitor in batch mode?
+Interactive mode is commonly used for ad hoc querying, setup, analysis, and so forth while the batch mode is used for executing prepared sets of SQL (e.g. a mysqldump, auditing scripts)
 
 4. What do the monitor user, password, and database options do?
-
+They tell the mysql server which user is being used to connect to a database schema in mysql, identified by a specific password.  The mysql server will use this information to determine if: the user/password combination is valid and has permission to access the requested database.
