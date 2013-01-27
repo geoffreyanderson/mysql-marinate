@@ -34,7 +34,7 @@ I also have a local copy of Percona Server source checked out for patching on my
 
 2) Document where important files should be.
 All over the place! :)
-* /var/lib/mysql -- default data directory
+* /var/lib/mysql -- default data directory (error log and pid file are also under here currently :))
 * /etc/mysql/my.cnf -- the global mysqld config file
 * /usr/share/mysql -- translation files and stuff
 * /usr/lib/mysql -- mysql development headers *will* go here. Currently this just has a "plugin" directory with the mysql plugins
